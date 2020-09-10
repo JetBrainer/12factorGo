@@ -13,11 +13,16 @@ import (
 )
 
 func main(){
-	logrus.Info("Hello World")
+	log := logrus.New()
+	log.SetOutput(os.Stdout)
+
+
+
+	log.Info("Starting the app...")
 
 	port := os.Getenv("PORT")
 	if port == ""{
-		logrus.Fatal("Port is not set")
+		log.Fatal("Port is not set")
 	}
 
 
@@ -37,7 +42,14 @@ func main(){
 	signal.Notify(interrupt,os.Interrupt,syscall.SIGTERM)
 
 	<-interrupt
+
+	log.Info("Stopping the app...")
+
 	timeout, cancelFunc := context.WithTimeout(context.Background(),5*time.Second)
 	defer cancelFunc()
-	serv.Shutdown(timeout)
+	if err := serv.Shutdown(timeout); err != nil{
+		log.Error("Error when shutdown app: %v", err)
+	}
+
+	log.Info("The app stopped")
 }
