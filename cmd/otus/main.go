@@ -2,14 +2,15 @@ package main
 
 import (
 	"context"
-	"github.com/gorilla/mux"
-	"github.com/sirupsen/logrus"
 	"net"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/gorilla/mux"
+	"github.com/sirupsen/logrus"
 )
 
 func main(){
@@ -52,4 +53,5 @@ func main(){
 	}
 
 	log.Info("The app stopped")
+
 }
