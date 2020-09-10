@@ -1,1 +1,1 @@
-web: bin/12factorGo
+web: bin/otus
